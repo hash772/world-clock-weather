@@ -2,9 +2,14 @@
 <html lang="ja">
 
 <head>
+
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>世界時刻・天気アプリ ver.4.3</title>
+
+<meta name="viewport"
+      content="width=device-width, initial-scale=1">
+
+<title>世界時刻・天気アプリ</title>
+
 
 <style>
 
@@ -16,23 +21,39 @@
     box-sizing: border-box;
 }
 
-html,
+
 body {
+
     margin: 0;
-    padding: 0;
-    width: 100%;
-    min-height: 100%;
+
+    padding: 20px;
+
+    font-family:
+        "Noto Sans JP",
+        "Yu Gothic",
+        sans-serif;
+
+    background: #dff7ee;
+
+    color: #222;
+
 }
 
-body {
-    font-family: sans-serif;
-    text-align: center;
-    background-color: #75faa8;
-    overflow-x: hidden;
-}
 
-h1 {
-    margin: 20px 10px;
+/* =========================================================
+   都市一覧
+   ========================================================= */
+
+#cityContainer {
+
+    display: flex;
+
+    flex-wrap: wrap;
+
+    justify-content: center;
+
+    gap: 20px;
+
 }
 
 
@@ -40,659 +61,153 @@ h1 {
    都市カード
    ========================================================= */
 
-.container {
-    width: 100%;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: flex-start;
-    gap: 20px;
-    padding: 10px 15px 30px;
-}
-
 .city {
+
     flex: 0 0 260px;
+
     width: 260px;
-    height: 260px;
 
-    padding: 15px;
+    min-height: 300px;
 
-    border: 2px solid #4a90e2;
-    border-radius: 15px;
+    padding: 18px;
+
+    border-radius: 18px;
+
+    background-color: white;
+
+    background-size: cover;
+
+    background-position: center;
 
     color: white;
-    text-shadow: 3px 3px 8px black;
+
+    text-shadow:
+        1px 1px 3px #000,
+        -1px -1px 3px #000;
 
     cursor: pointer;
 
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-
-    transition: 0.3s;
-
     overflow: hidden;
 
-    visibility: visible;
-    opacity: 1;
+    position: relative;
+
+    transition:
+        transform 0.2s ease;
+
 }
+
 
 .city:hover {
+
     transform: scale(1.03);
+
 }
 
 
-/* =========================================================
-   都市名
-   ========================================================= */
-
 .city h2 {
-    height: 40px;
+
+    margin:
+        0 0 20px 0;
 
     display: flex;
+
     align-items: center;
+
     justify-content: center;
 
     gap: 8px;
 
-    margin-top: 15px;
-    margin-bottom: 20px;
+    font-size: 24px;
 
     white-space: nowrap;
+
 }
 
-.city-flag {
-    display: inline-flex;
-    align-items: center;
-    flex-shrink: 0;
-}
-
-.city-flag img {
-    width: 42px;
-    height: auto;
-    display: block;
-}
-
-.city-name {
-    white-space: nowrap;
-}
-
-.city-icon {
-    display: inline-block;
-    flex-shrink: 0;
-}
 
 .city h2.long-name {
-    font-size: inherit;
-    transform: none;
-}
 
-.city .info-climate {
-    white-space: nowrap;
+    font-size: 19px;
+
 }
 
 
-/* =========================================================
-   温度・湿度
-   ========================================================= */
+.city-flag {
 
-.city .info-data {
-    width: 100%;
+    display: inline-flex;
 
-    display: flex;
-    justify-content: center;
     align-items: center;
 
-    gap: 18px;
-
-    margin: 15px auto;
-
-    padding: 0;
-
-    white-space: nowrap;
 }
+
+
+.city-flag img {
+
+    display: block;
+
+    width: 42px;
+
+    height: auto;
+
+}
+
+
+.city-name {
+
+    display: inline-block;
+
+}
+
+
+.city-icon {
+
+    display: inline-block;
+
+}
+
 
 .city p {
-    margin: 10px 0;
-    line-height: 1.2;
-}
 
-.weather-line {
-    white-space: nowrap;
-}
+    margin:
+        12px 0;
 
-.city .info-time {
-    margin-top: 15px;
-    margin-bottom: 15px;
+    text-align: center;
+
+    font-size: 18px;
+
 }
 
 
-/* =========================================================
-   通常カードの日の出・日の入り
-   ========================================================= */
+.info-time {
 
-.city .info-sun {
-    display: none !important;
+    font-size: 25px !important;
+
+    font-weight: bold;
+
 }
 
 
-/* =========================================================
-   2920px以上
-   超縮小表示
-   ========================================================= */
+.info-data {
 
-@media (min-width: 2920px) {
+    display: flex;
 
-    .city-flag {
-        display: none;
-    }
+    justify-content: center;
 
-    .city-icon {
-        display: none;
-    }
+    gap: 15px;
 
-    .humidity {
-        display: none;
-    }
-
-    .info-climate {
-        display: none;
-    }
-
-    .info-sun {
-        display: none !important;
-    }
-
-    .city h2 {
-        font-size: 34px;
-    }
-
-    .city h2.long-name {
-        font-size: 22px;
-    }
-
-    .city p {
-        font-size: 29px;
-        margin-top: 15px;
-        margin-bottom: 15px;
-    }
 }
 
 
-/* =========================================================
-   画面幅1200px以下
-   ========================================================= */
+.info-sun {
 
-@media (max-width: 1200px) {
+    font-size: 16px !important;
 
-    .city {
-        transform: scale(1.1);
-    }
-
-    .city h2 {
-        font-size: 26px;
-    }
-
-    .city p {
-        font-size: 18px;
-    }
-
-    .city-flag img {
-        width: 38px;
-    }
 }
 
-/* =========================================================
-   スマホ対応版
-   ========================================================= */
 
-@media (max-width: 800px) {
+.info-climate {
 
-    /* ---------- ページ ---------- */
+    font-size: 15px !important;
 
-    html,
-    body {
-        width: 100%;
-        min-width: 0;
-        margin: 0;
-        padding: 0;
-
-        overflow-x: hidden;
-    }
-
-    body {
-        background-color: #75faa8;
-    }
-
-
-    /* ---------- タイトル ---------- */
-
-    h1 {
-        width: 100%;
-
-        margin: 12px 0 18px;
-        padding: 0 10px;
-
-        font-size: 22px;
-        line-height: 1.3;
-
-        white-space: normal;
-    }
-
-
-    /* ---------- 都市カード全体 ---------- */
-
-    .container {
-        width: 100% !important;
-
-        display: flex !important;
-
-        flex-direction: column !important;
-        flex-wrap: nowrap !important;
-
-        align-items: center !important;
-        justify-content: flex-start !important;
-
-        gap: 15px !important;
-
-        margin: 0 !important;
-        padding: 0 10px 30px !important;
-    }
-
-
-    /* ---------- 都市カード ---------- */
-
-    .city {
-        display: block !important;
-
-        width: 100% !important;
-        max-width: 360px !important;
-
-        min-width: 0 !important;
-
-        height: 250px !important;
-        min-height: 250px !important;
-
-        flex: 0 0 250px !important;
-
-        margin: 0 !important;
-        padding: 15px !important;
-
-        transform: none !important;
-
-        border-radius: 15px;
-
-        visibility: visible !important;
-        opacity: 1 !important;
-
-        overflow: hidden !important;
-    }
-
-
-    .city:hover {
-        transform: none !important;
-    }
-
-
-    /* ---------- 都市名 ---------- */
-
-    .city h2 {
-        width: 100% !important;
-
-        height: 40px !important;
-
-        display: flex !important;
-
-        align-items: center !important;
-        justify-content: center !important;
-
-        gap: 6px !important;
-
-        margin-top: 10px !important;
-        margin-bottom: 18px !important;
-
-        font-size: 23px !important;
-
-        line-height: 1.2 !important;
-
-        white-space: nowrap !important;
-    }
-
-
-    .city h2.long-name {
-        font-size: 18px !important;
-    }
-
-
-    /* ---------- 国旗 ---------- */
-
-    .city-flag {
-        display: inline-flex !important;
-
-        align-items: center;
-
-        flex-shrink: 0;
-    }
-
-
-    .city-flag img {
-        width: 34px !important;
-        height: auto !important;
-    }
-
-
-    /* ---------- 都市アイコン ---------- */
-
-    .city-icon {
-        display: inline-block !important;
-
-        flex-shrink: 0;
-    }
-
-
-    /* ---------- 時刻・天気 ---------- */
-
-    .city p {
-        margin: 9px 0 !important;
-
-        font-size: 17px !important;
-
-        line-height: 1.25 !important;
-    }
-
-
-    .city .info-time {
-        margin-top: 12px !important;
-        margin-bottom: 12px !important;
-    }
-
-
-    .weather-line {
-        white-space: nowrap;
-    }
-
-
-    /* ---------- 温度＋湿度 ---------- */
-
-    .city .info-data {
-        width: 100% !important;
-
-        display: flex !important;
-
-        justify-content: center !important;
-        align-items: center !important;
-
-        gap: 15px !important;
-
-        margin: 12px auto !important;
-
-        white-space: nowrap !important;
-    }
-
-
-    /* ---------- 気候 ---------- */
-
-    .city .info-climate {
-        white-space: nowrap !important;
-
-        overflow: hidden !important;
-
-        text-overflow: ellipsis;
-    }
-
-
-    /* ---------- 日の出・日の入り ---------- */
-
-    .city .info-sun {
-        display: none !important;
-    }
-
-
-    /* =====================================================
-       詳細オーバーレイ
-       ===================================================== */
-
-    .detail-overlay {
-
-        position: fixed !important;
-
-        inset: 0 !important;
-
-        width: 100vw !important;
-        height: 100vh !important;
-
-        display: none;
-
-        align-items: center !important;
-        justify-content: center !important;
-
-        padding: 10px !important;
-
-        background: rgba(0,0,0,0.15);
-
-        z-index: 9999;
-
-        pointer-events: none;
-    }
-
-
-    /* =====================================================
-       詳細カード
-       ===================================================== */
-
-    .detail-card {
-
-        position: fixed !important;
-
-        top: 10px !important;
-        left: 10px !important;
-
-        width: calc(100vw - 20px) !important;
-        height: calc(100vh - 20px) !important;
-
-        max-width: none !important;
-        max-height: none !important;
-
-        padding: 60px 18px 25px !important;
-
-        border-radius: 22px !important;
-        border-width: 3px !important;
-
-        overflow-x: hidden !important;
-        overflow-y: auto !important;
-
-        cursor: default !important;
-
-        user-select: text !important;
-
-        -webkit-overflow-scrolling: touch;
-    }
-
-
-    /* ---------- 詳細タイトル ---------- */
-
-    .detail-card h2 {
-
-        width: 100% !important;
-
-        margin-top: 5px !important;
-        margin-bottom: 25px !important;
-
-        font-size: 31px !important;
-
-        line-height: 1.25 !important;
-
-        white-space: normal !important;
-
-        text-align: center !important;
-    }
-
-
-    /* ---------- 詳細国旗 ---------- */
-
-    .detail-flag {
-
-        margin-right: 5px !important;
-
-        vertical-align: middle;
-    }
-
-
-    .detail-flag img {
-
-        width: 42px !important;
-        height: auto !important;
-    }
-
-
-    /* ---------- 国コード ---------- */
-
-    .detail-country-code {
-
-        font-size: 22px !important;
-
-        margin-right: 5px !important;
-    }
-
-
-    /* ---------- 詳細データ ---------- */
-
-    .detail-card p {
-
-        width: 100% !important;
-
-        margin: 18px 0 !important;
-
-        font-size: 22px !important;
-
-        line-height: 1.3 !important;
-
-        text-align: center !important;
-    }
-
-
-    /* ---------- 時刻 ---------- */
-
-    #detailTime {
-        font-size: 25px !important;
-    }
-
-
-    /* ---------- 天気 ---------- */
-
-    #detailWeather {
-        font-size: 23px !important;
-    }
-
-
-    /* ---------- 温度＋湿度 ---------- */
-
-    .detail-weather-line {
-
-        display: flex !important;
-
-        justify-content: center !important;
-        align-items: center !important;
-
-        gap: 12px !important;
-
-        flex-wrap: wrap !important;
-
-        white-space: normal !important;
-    }
-
-
-    /* ---------- 日の出＋日の入り ---------- */
-
-    .detail-sun-line {
-
-        display: flex !important;
-
-        justify-content: center !important;
-        align-items: center !important;
-
-        gap: 15px !important;
-
-        flex-wrap: wrap !important;
-
-        white-space: normal !important;
-
-        font-size: 21px !important;
-    }
-
-
-    /* ---------- 座標 ---------- */
-
-    #detailCoordinates {
-
-        font-size: 19px !important;
-
-        line-height: 1.4 !important;
-    }
-
-
-    /* ---------- 気候 ---------- */
-
-    #detailClimate {
-
-        font-size: 20px !important;
-
-        line-height: 1.4 !important;
-    }
-
-
-    /* =====================================================
-       詳細カード操作ボタン
-       ===================================================== */
-
-    .detail-controls {
-
-        position: absolute !important;
-
-        top: 8px !important;
-        right: 10px !important;
-
-        display: flex !important;
-
-        align-items: center !important;
-
-        gap: 6px !important;
-
-        z-index: 20 !important;
-    }
-
-
-    .detail-nav {
-
-        width: 40px !important;
-        height: 40px !important;
-
-        padding: 0 !important;
-
-        border-radius: 50% !important;
-
-        font-size: 25px !important;
-
-        line-height: 40px !important;
-
-        flex-shrink: 0;
-    }
-
-
-    .detail-close {
-
-        display: inline-flex !important;
-
-        align-items: center !important;
-        justify-content: center !important;
-
-        width: 40px !important;
-        height: 40px !important;
-
-        font-size: 27px !important;
-
-        flex-shrink: 0;
-    }
 }
 
 
@@ -700,26 +215,31 @@ h1 {
    詳細オーバーレイ
    ========================================================= */
 
-.detail-overlay {
-
-    display: none;
+#detailOverlay {
 
     position: fixed;
 
-    top: 0;
-    left: 0;
+    inset: 0;
 
     width: 100vw;
+
     height: 100vh;
 
-    background: transparent;
+    background:
+        rgba(0,0,0,0.65);
+
+    display: none;
+
+    visibility: hidden;
+
+    pointer-events: none;
+
+    align-items: center;
+
+    justify-content: center;
 
     z-index: 9999;
 
-    justify-content: flex-start;
-    align-items: flex-start;
-
-    pointer-events: none;
 }
 
 
@@ -727,222 +247,186 @@ h1 {
    詳細カード
    ========================================================= */
 
-.detail-card {
+#detailCard {
 
-    position: fixed;
+    position: relative;
 
-    top: 20px;
-    left: 20px;
+    width: min(1000px, 90vw);
 
-    width: 1300px;
-    height: 850px;
+    height: min(800px, 90vh);
 
-    max-width: calc(100vw - 40px);
-    max-height: calc(100vh - 40px);
+    background: white;
 
-    padding: 60px;
+    border-radius: 20px;
 
-    border-radius: 40px;
-    border: 5px solid #4a90e2;
+    overflow: hidden;
 
-    color: white;
-
-    text-shadow: 5px 5px 12px black;
-
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-
-    box-shadow: 0 15px 60px rgba(0,0,0,0.7);
-
-    pointer-events: auto;
+    box-shadow:
+        0 10px 40px rgba(0,0,0,0.5);
 
     cursor: grab;
 
-    user-select: none;
-
-    overflow: auto;
-}
-
-.detail-card:active {
-    cursor: grabbing;
 }
 
 
 /* =========================================================
-   詳細カード都市名
+   詳細カードタイトル
    ========================================================= */
 
-.detail-card h2 {
-
-    font-size: 60px;
-
-    margin-top: 10px;
-    margin-bottom: 35px;
-
-    line-height: 1.1;
-
-    white-space: nowrap;
-}
-
-
-/* =========================================================
-   詳細カード国旗
-   ========================================================= */
-
-.detail-flag {
-
-    display: inline-flex;
-    align-items: center;
-
-    margin-right: 15px;
-}
-
-.detail-flag img {
-
-    width: 70px;
-    height: auto;
-
-    display: block;
-}
-
-
-/* =========================================================
-   国コード
-   ========================================================= */
-
-.detail-country-code {
-
-    display: inline-block;
-
-    font-size: 45px;
-    font-weight: bold;
-
-    margin-right: 15px;
-
-    vertical-align: middle;
-
-    white-space: nowrap;
-}
-
-
-/* =========================================================
-   詳細データ
-   ========================================================= */
-
-.detail-card p {
-
-    font-size: 45px;
-
-    margin: 25px 0;
-
-    line-height: 1.15;
-}
-
-
-/* =========================================================
-   温度＋湿度
-   ========================================================= */
-
-.detail-weather-line {
-
-    display: flex;
-
-    justify-content: center;
-    align-items: center;
-
-    gap: 45px;
-
-    width: 100%;
-
-    white-space: nowrap;
-
-    text-align: center;
-}
-
-
-/* =========================================================
-   日の出＋日の入り
-   ========================================================= */
-
-.detail-sun-line {
-
-    display: flex;
-
-    justify-content: center;
-    align-items: center;
-
-    gap: 45px;
-
-    width: 100%;
-
-    white-space: nowrap;
-
-    text-align: center;
-
-    font-size: 42px !important;
-}
-
-
-/* =========================================================
-   座標
-   ========================================================= */
-
-#detailCoordinates {
-    font-size: 36px;
-}
-
-
-/* =========================================================
-   ナビゲーション
-   ========================================================= */
-
-.detail-controls {
+#detailTitle {
 
     position: absolute;
 
     top: 15px;
-    right: 22px;
+
+    left: 20px;
+
+    right: 20px;
+
+    z-index: 20;
 
     display: flex;
+
     align-items: center;
 
-    gap: 20px;
+    justify-content: center;
 
-    z-index: 10;
-}
-
-
-.detail-nav {
-
-    width: 60px;
-    height: 60px;
-
-    padding: 0;
-
-    border: none;
-    border-radius: 50%;
-
-    background: rgba(0,0,0,0.35);
+    gap: 10px;
 
     color: white;
 
-    font-size: 42px;
+    font-size: 30px;
+
     font-weight: bold;
 
-    line-height: 60px;
+    text-shadow:
+        2px 2px 5px #000;
+
+    pointer-events: none;
+
+}
+
+
+.detail-flag img {
+
+    width: 70px;
+
+    height: auto;
+
+    display: block;
+
+}
+
+
+.detail-country-code {
+
+    font-size: 20px;
+
+}
+
+
+/* =========================================================
+   詳細写真エリア
+   ========================================================= */
+
+#detailPhotoLayer {
+
+    position: absolute;
+
+    left: 0;
+
+    top: 0;
+
+    width: 100%;
+
+    height: 100%;
+
+    overflow: hidden;
+
+    z-index: 1;
+
+    touch-action: pan-x;
+
+}
+
+
+/*
+   写真そのもの
+
+   ★重要
+   写真だけを移動させる
+*/
+
+#detailPhoto {
+
+    position: absolute;
+
+    left: 50%;
+
+    top: 50%;
+
+    height: 100%;
+
+    width: auto;
+
+    max-width: none;
+
+    transform:
+        translateX(-50%)
+        translateY(-50%);
+
+    object-fit: cover;
+
+    user-select: none;
+
+    -webkit-user-drag: none;
+
+    pointer-events: none;
+
+}
+
+
+/* =========================================================
+   詳細情報
+   ========================================================= */
+
+#detailInfo {
+
+    position: absolute;
+
+    left: 20px;
+
+    right: 20px;
+
+    bottom: 80px;
+
+    z-index: 15;
+
+    padding: 15px;
+
+    border-radius: 15px;
+
+    background:
+        rgba(0,0,0,0.45);
+
+    color: white;
 
     text-align: center;
 
-    cursor: pointer;
+    text-shadow:
+        1px 1px 3px #000;
 
-    text-shadow: 3px 3px 8px black;
+    pointer-events: none;
 
-    user-select: none;
 }
 
-.detail-nav:hover {
-    background: rgba(0,0,0,0.6);
+
+#detailInfo p {
+
+    margin: 7px 0;
+
+    font-size: 18px;
+
 }
 
 
@@ -950,295 +434,423 @@ h1 {
    閉じる
    ========================================================= */
 
-.detail-close {
+#detailClose {
 
-    position: static;
+    position: absolute;
 
-    font-size: 42px;
+    top: 12px;
+
+    right: 15px;
+
+    z-index: 30;
+
+    width: 45px;
+
+    height: 45px;
+
+    border: none;
+
+    border-radius: 50%;
+
+    background:
+        rgba(0,0,0,0.65);
 
     color: white;
 
+    font-size: 28px;
+
     cursor: pointer;
 
-    text-shadow: 3px 3px 8px black;
-
-    z-index: 10;
-
-    user-select: none;
 }
 
 
 /* =========================================================
-   大画面詳細
+   前へ・次へ
    ========================================================= */
 
-@media (min-width: 1600px) {
+#detailPrev,
+#detailNext {
 
-    .detail-nav {
+    position: absolute;
 
-        width: 70px;
-        height: 70px;
+    top: 50%;
 
-        font-size: 50px;
+    transform:
+        translateY(-50%);
 
-        line-height: 70px;
-    }
+    z-index: 30;
 
-    .detail-close {
-        font-size: 50px;
-    }
+    width: 55px;
 
-    .detail-card h2 {
-        font-size: 72px;
-        margin-bottom: 45px;
-    }
+    height: 70px;
 
-    .detail-card p {
-        font-size: 60px;
-        margin: 30px 0;
-    }
+    border: none;
 
-    .detail-flag img {
-        width: 82px;
-    }
+    border-radius: 12px;
 
-    .detail-country-code {
-        font-size: 55px;
-    }
+    background:
+        rgba(0,0,0,0.55);
+
+    color: white;
+
+    font-size: 35px;
+
+    cursor: pointer;
+
+}
+
+
+#detailPrev {
+
+    left: 15px;
+
+}
+
+
+#detailNext {
+
+    right: 15px;
+
 }
 
 
 /* =========================================================
-   スマホ詳細カード
+   PC
+   ========================================================= */
+
+@media (min-width: 801px) {
+
+    #detailCard {
+
+        cursor: grab;
+
+    }
+
+}
+
+
+/* =========================================================
+   スマホ
    ========================================================= */
 
 @media (max-width: 800px) {
 
-    .detail-overlay {
+    body {
 
-        position: fixed !important;
+        padding: 10px;
 
-        top: 0 !important;
-        left: 0 !important;
-
-        width: 100vw !important;
-        height: 100vh !important;
-
-        justify-content: center !important;
-        align-items: center !important;
     }
+
+
+    #cityContainer {
+
+        flex-direction: column;
+
+        align-items: center;
+
+    }
+
+
+    .city {
+
+        width: 100%;
+
+        max-width: 420px;
+
+        flex: none;
+
+    }
+
+
+    /*
+       ★詳細カードはスマホでは横長
+    */
+
+   @media (max-width: 800px) {
 
     .detail-card {
 
-        position: fixed !important;
+        top: 10px;
+        left: 10px;
 
-        top: 10px !important;
-        left: 10px !important;
+        width: calc(100vw - 20px);
+        height: calc(100vh - 20px);
 
-        width: calc(100vw - 20px) !important;
-        height: calc(100vh - 20px) !important;
+/* =========================================================
+   大画面
+   ========================================================= */
 
-        max-width: none !important;
-        max-height: none !important;
+@media (min-width: 2920px) {
 
-        padding: 25px 18px !important;
+    .city {
 
-        border-radius: 25px !important;
+        flex: 0 0 220px;
 
-        overflow-y: auto !important;
-        overflow-x: hidden !important;
+        width: 220px;
+
+        min-height: 220px;
+
+        padding: 12px;
+
     }
 
-    .detail-card h2 {
 
-        font-size: 32px !important;
+    .city h2 {
 
-        margin-top: 45px !important;
-        margin-bottom: 25px !important;
+        font-size: 20px;
 
-        white-space: normal !important;
+        margin-bottom: 10px;
 
-        line-height: 1.2 !important;
     }
 
-    .detail-card p {
 
-        font-size: 24px !important;
+    .city p {
 
-        margin: 20px 0 !important;
+        font-size: 14px;
+
+        margin: 6px 0;
+
     }
 
-    .detail-weather-line,
-    .detail-sun-line {
 
-        gap: 15px !important;
+    .info-time {
 
-        flex-wrap: wrap !important;
-
-        white-space: normal !important;
-    }
-
-    .detail-sun-line {
-        font-size: 23px !important;
-    }
-
-    .detail-flag {
-        margin-right: 8px !important;
-    }
-
-    .detail-flag img {
-        width: 45px !important;
-    }
-
-    .detail-country-code {
-        font-size: 24px !important;
-        margin-right: 8px !important;
-    }
-
-    #detailCoordinates {
         font-size: 20px !important;
+
     }
+
+
+    .info-climate {
+
+        font-size: 12px !important;
+
+    }
+
+}
+/* =========================================================
+   スマホ拡大版
+   横幅3倍・写真だけ左右移動
+   ========================================================= */
+
+@media (max-width: 800px) {
+
+    .detail-card {
+
+        /* 縦幅は今までと同じ */
+        height: calc(100vh - 20px);
+
+        /* 横幅だけ3倍 */
+        width: calc((100vw - 20px) * 3);
+
+        /*
+           画面左から開始
+           横にはみ出してOK
+        */
+        left: 10px;
+
+        /*
+           高さは変更しない
+        */
+        top: 10px;
+
+        /*
+           写真がカードから出ないようにする
+        */
+        overflow: hidden;
+
+        /*
+           カード自体は動かさない
+        */
+        touch-action: none;
+    }
+
+
+    /* =========================
+       背景写真
+       ========================= */
+
+    .detail-photo {
+
+        position: absolute;
+
+        top: 0;
+        left: 0;
+
+        width: 100%;
+        height: 100%;
+
+        background-repeat: no-repeat;
+
+        /*
+           写真は高さに合わせる
+           横方向は必要な分だけ広がる
+        */
+        background-size: auto 100%;
+
+        background-position: center center;
+
+        z-index: 0;
+
+        /*
+           写真だけがタッチ対象
+        */
+        touch-action: pan-x;
+    }
+
+
+    /* =========================
+       文字を中央に固定
+       ========================= */
+
+    .detail-card > h2,
+    .detail-card > p {
+
+        position: relative;
+
+        z-index: 5;
+
+        /*
+           カード中央を基準にする
+        */
+        text-align: center;
+    }
+
+
+    /* タイトル */
+    .detail-card > h2 {
+
+        width: 100%;
+
+        text-align: center;
+    }
+
+
+    /* 各データ */
+    .detail-card > p {
+
+        width: 100%;
+
+        text-align: center;
+    }
+
+
+    /* =========================
+       ボタンも固定
+       ========================= */
 
     .detail-controls {
 
-        top: 8px !important;
-        right: 10px !important;
-
-        gap: 7px !important;
+        z-index: 20;
     }
 
-    .detail-nav {
-
-        width: 42px !important;
-        height: 42px !important;
-
-        font-size: 28px !important;
-
-        line-height: 42px !important;
-    }
-
-    .detail-close {
-        font-size: 32px !important;
-    }
-}
-
-/* =========================================================
-   スマホ版 ver.1
-   ========================================================= */
-
-@media (max-width: 600px) {
-
-    body {
-        padding: 0;
-    }
-
-    h1 {
-        font-size: 20px !important;
-        margin: 12px 5px 15px !important;
-    }
-
-    .container {
-        display: flex !important;
-        flex-direction: column !important;
-        align-items: center !important;
-        gap: 12px !important;
-        padding: 0 8px 25px !important;
-    }
-
-    .city {
-        width: calc(100vw - 16px) !important;
-        max-width: 380px !important;
-        height: 230px !important;
-        min-height: 230px !important;
-        flex: 0 0 230px !important;
-
-        padding: 12px !important;
-        border-radius: 16px !important;
-    }
-
-    .city h2 {
-        margin-top: 8px !important;
-        margin-bottom: 12px !important;
-
-        font-size: 21px !important;
-    }
-
-    .city h2.long-name {
-        font-size: 17px !important;
-    }
-
-    .city-flag img {
-        width: 32px !important;
-    }
-
-    .city p {
-        font-size: 16px !important;
-        margin: 8px 0 !important;
-    }
-
-    .city .info-time {
-        margin-top: 8px !important;
-        margin-bottom: 8px !important;
-        font-size: 18px !important;
-    }
-
-    .city .info-data {
-        gap: 12px !important;
-        margin: 9px auto !important;
-    }
-
-    .city .info-climate {
-        font-size: 14px !important;
-    }
 }
 </style>
+
 </head>
 
 
 <body>
 
-<h1>🌍 新しい世界時刻・天気アプリ ver.4.3</h1>
 
-<div id="cityContainer" class="container"></div>
+<div id="cityContainer"></div>
 
 
-<!-- =========================================================
+<!-- =======================================================
      詳細カード
-     ========================================================= -->
+     ======================================================= -->
 
-<div id="detailOverlay" class="detail-overlay">
+<div id="detailOverlay">
 
-    <div id="detailCard" class="detail-card">
 
-        <div class="detail-controls">
+    <div id="detailCard">
 
-            <button id="detailPrev" class="detail-nav">◀</button>
 
-            <button id="detailNext" class="detail-nav">▶</button>
+        <!-- 写真だけを動かす領域 -->
 
-            <span id="detailClose" class="detail-close">✕</span>
+        <div id="detailPhotoLayer">
+
+            <img
+                id="detailPhoto"
+                src=""
+                alt=""
+            >
 
         </div>
 
-        <h2 id="detailTitle"></h2>
 
-        <p id="detailTime"></p>
+        <!-- タイトル -->
 
-        <p id="detailWeather"></p>
+        <div id="detailTitle"></div>
 
-        <p class="detail-weather-line">
-            <span id="detailTemp"></span>
-            <span id="detailHumidity"></span>
-        </p>
 
-        <p class="detail-sun-line">
-            <span id="detailSunrise"></span>
-            <span id="detailSunset"></span>
-        </p>
+        <!-- 詳細情報 -->
 
-        <p id="detailCoordinates"></p>
+        <div id="detailInfo">
 
-        <p id="detailClimate"></p>
+            <p id="detailTime">
+                🕒 --:--:--
+            </p>
+
+            <p id="detailWeather">
+                天気を取得中...
+            </p>
+
+            <p id="detailTemp">
+                🌡 --℃
+            </p>
+
+            <p id="detailHumidity">
+                💧 --%
+            </p>
+
+            <p id="detailSunrise">
+                🌅 --:--
+            </p>
+
+            <p id="detailSunset">
+                🌇 --:--
+            </p>
+
+            <p id="detailCoordinates">
+                📍 --
+            </p>
+
+            <p id="detailClimate">
+                🌍 --
+            </p>
+
+        </div>
+
+
+        <!-- 前へ -->
+
+        <button
+            id="detailPrev"
+            type="button"
+        >
+            ‹
+        </button>
+
+
+        <!-- 次へ -->
+
+        <button
+            id="detailNext"
+            type="button"
+        >
+            ›
+        </button>
+
+
+        <!-- 閉じる -->
+
+        <button
+            id="detailClose"
+            type="button"
+        >
+            ×
+        </button>
+
 
     </div>
 
@@ -1246,6 +858,7 @@ h1 {
 
 
 <script>
+
 
 /* =========================================================
    ① 都市データ
@@ -2046,13 +1659,14 @@ function getFlagImage(flagCode) {
 
 function getSunDeclination(date) {
 
-    const start = new Date(
-        Date.UTC(
-            date.getUTCFullYear(),
-            0,
-            1
-        )
-    );
+    const start =
+        new Date(
+            Date.UTC(
+                date.getUTCFullYear(),
+                0,
+                1
+            )
+        );
 
     const diff =
         (date - start) / 86400000;
@@ -2091,10 +1705,13 @@ function getPolarDayNight(latitude, date) {
             (latitude > 0 && declination > 0) ||
             (latitude < 0 && declination < 0)
         ) {
+
             return "polarDay";
+
         }
 
         return "polarNight";
+
     }
 
     return "normal";
@@ -2108,41 +1725,61 @@ function getPolarDayNight(latitude, date) {
 function weatherText(code, isDay) {
 
     if (code === 0) {
-        return isDay ? "🌞 晴れ" : "🌙 晴れ";
+
+        return isDay
+            ? "🌞 晴れ"
+            : "🌙 晴れ";
+
     }
 
     if (code === 1 || code === 2) {
+
         return isDay
             ? "🌤️ 晴れ時々曇り"
             : "☁️ 晴れ時々曇り";
+
     }
 
     if (code === 3) {
+
         return "☁️ 曇り";
+
     }
 
     if (code >= 51 && code <= 67) {
+
         return "🌧️ 雨";
+
     }
 
     if (code >= 71 && code <= 77) {
+
         return "❄️ 雪";
+
     }
 
     if (code >= 80 && code <= 82) {
+
         return "🌦️ にわか雨";
+
     }
 
     if (code === 45 || code === 48) {
+
         return "🌫️ 霧";
+
     }
 
     if (code === 95) {
+
         return "⛈️ 雷雨";
+
     }
 
     if (code === 96 || code === 99) {
+
         return "⛈️ 激しい雷雨";
+
     }
 
     return "🌍 不明";
@@ -2151,11 +1788,12 @@ function weatherText(code, isDay) {
 
 /* =========================================================
    ⑤ 都市カード生成
-   ★スマホでも必ずここが実行される
    ========================================================= */
 
 const cityContainer =
-    document.getElementById("cityContainer");
+    document.getElementById(
+        "cityContainer"
+    );
 
 
 if (!cityContainer) {
@@ -2164,12 +1802,15 @@ if (!cityContainer) {
         "cityContainer が見つかりません"
     );
 
-} else {
+}
+else {
 
     cities.forEach(city => {
 
         const card =
-            document.createElement("div");
+            document.createElement(
+                "div"
+            );
 
         card.id =
             city.id + "Card";
@@ -2193,12 +1834,18 @@ if (!cityContainer) {
 
 
         const flagImage =
-            getFlagImage(city.flagCode);
+            getFlagImage(
+                city.flagCode
+            );
 
 
         card.innerHTML = `
 
-            <h2 class="${city.name.length >= 7 ? "long-name" : ""}">
+            <h2 class="${
+                city.name.length >= 7
+                    ? "long-name"
+                    : ""
+            }">
 
                 <span class="city-flag">
 
@@ -2297,7 +1944,9 @@ if (!cityContainer) {
         `;
 
 
-        cityContainer.appendChild(card);
+        cityContainer.appendChild(
+            card
+        );
 
     });
 
@@ -2309,60 +1958,158 @@ if (!cityContainer) {
    ========================================================= */
 
 const detailOverlay =
-    document.getElementById("detailOverlay");
+    document.getElementById(
+        "detailOverlay"
+    );
 
 const detailCard =
-    document.getElementById("detailCard");
+    document.getElementById(
+        "detailCard"
+    );
+
+const detailPhotoLayer =
+    document.getElementById(
+        "detailPhotoLayer"
+    );
+
+const detailPhoto =
+    document.getElementById(
+        "detailPhoto"
+    );
 
 const detailTitle =
-    document.getElementById("detailTitle");
+    document.getElementById(
+        "detailTitle"
+    );
 
 const detailTime =
-    document.getElementById("detailTime");
+    document.getElementById(
+        "detailTime"
+    );
 
 const detailWeather =
-    document.getElementById("detailWeather");
+    document.getElementById(
+        "detailWeather"
+    );
 
 const detailTemp =
-    document.getElementById("detailTemp");
+    document.getElementById(
+        "detailTemp"
+    );
 
 const detailHumidity =
-    document.getElementById("detailHumidity");
+    document.getElementById(
+        "detailHumidity"
+    );
 
 const detailSunrise =
-    document.getElementById("detailSunrise");
+    document.getElementById(
+        "detailSunrise"
+    );
 
 const detailSunset =
-    document.getElementById("detailSunset");
+    document.getElementById(
+        "detailSunset"
+    );
 
 const detailCoordinates =
-    document.getElementById("detailCoordinates");
+    document.getElementById(
+        "detailCoordinates"
+    );
 
 const detailClimate =
-    document.getElementById("detailClimate");
+    document.getElementById(
+        "detailClimate"
+    );
 
 const detailClose =
-    document.getElementById("detailClose");
+    document.getElementById(
+        "detailClose"
+    );
 
 const detailPrev =
-    document.getElementById("detailPrev");
+    document.getElementById(
+        "detailPrev"
+    );
 
 const detailNext =
-    document.getElementById("detailNext");
+    document.getElementById(
+        "detailNext"
+    );
 
 
-let detailCityId = null;
+let detailCityId =
+    null;
 
 
 /* =========================================================
-   ⑦ 時刻更新
-   ★1つだけ
+   ⑦ 写真スワイプ用変数
+   ★ここは1セットだけ
+   ========================================================= */
+
+let photoSwipeStartX =
+    0;
+
+let photoSwipeCurrentX =
+    0;
+
+let photoSwipeStartPosition =
+    0;
+
+let photoIsDragging =
+    false;
+
+
+/* =========================================================
+   写真位置設定
+   ========================================================= */
+
+function setDetailPhotoPosition(
+    position
+) {
+
+    if (!detailPhoto) {
+        return;
+    }
+
+
+    detailPhoto.style.transform =
+        "translateX(calc(-50% + " +
+        position +
+        "px)) translateY(-50%)";
+
+}
+
+
+/* =========================================================
+   写真位置を中央へ戻す
+   ========================================================= */
+
+function resetDetailPhotoPosition() {
+
+    photoSwipeCurrentX =
+        0;
+
+    photoSwipeStartPosition =
+        0;
+
+    photoIsDragging =
+        false;
+
+    setDetailPhotoPosition(0);
+
+}
+
+
+/* =========================================================
+   ⑧ 時刻更新
    ========================================================= */
 
 function updateTime() {
 
     const now =
         new Date();
+
 
     const smallMode =
         window.matchMedia(
@@ -2372,7 +2119,8 @@ function updateTime() {
 
     cities.forEach(city => {
 
-        let fullTime = "--:--:--";
+        let fullTime =
+            "--:--:--";
 
 
         try {
@@ -2381,11 +2129,20 @@ function updateTime() {
                 now.toLocaleTimeString(
                     "ja-JP",
                     {
-                        timeZone: city.timezone,
-                        hour12: false,
-                        hour: "2-digit",
-                        minute: "2-digit",
-                        second: "2-digit"
+                        timeZone:
+                            city.timezone,
+
+                        hour12:
+                            false,
+
+                        hour:
+                            "2-digit",
+
+                        minute:
+                            "2-digit",
+
+                        second:
+                            "2-digit"
                     }
                 );
 
@@ -2413,6 +2170,7 @@ function updateTime() {
             timeElement.dataset.fullTime =
                 fullTime;
 
+
             timeElement.textContent =
                 smallMode
                     ? fullTime.substring(0,5)
@@ -2423,6 +2181,7 @@ function updateTime() {
 
         if (
             detailCityId === city.id &&
+            detailOverlay &&
             detailOverlay.style.display === "flex"
         ) {
 
@@ -2438,6 +2197,7 @@ function updateTime() {
 
 updateTime();
 
+
 setInterval(
     updateTime,
     1000
@@ -2445,7 +2205,7 @@ setInterval(
 
 
 /* =========================================================
-   ⑧ 天気取得
+   ⑨ 天気取得
    ========================================================= */
 
 async function getWeather() {
@@ -2454,6 +2214,7 @@ async function getWeather() {
 
         const url =
             `https://api.open-meteo.com/v1/forecast?latitude=${city.latitude}&longitude=${city.longitude}&current=temperature_2m,relative_humidity_2m,weather_code,is_day&daily=sunrise,sunset&timezone=auto`;
+
 
         try {
 
@@ -2464,7 +2225,8 @@ async function getWeather() {
             if (!response.ok) {
 
                 throw new Error(
-                    "HTTP " + response.status
+                    "HTTP " +
+                    response.status
                 );
 
             }
@@ -2475,7 +2237,7 @@ async function getWeather() {
 
 
             /* =========================
-               背景
+               通常カード背景
                ========================= */
 
             const card =
@@ -2484,13 +2246,13 @@ async function getWeather() {
                 );
 
 
-            if (card && city.image) {
+            if (
+                card &&
+                city.image
+            ) {
 
                 let image =
                     city.image;
-
-                let dark =
-                    "rgba(0,0,0,0.45)";
 
 
                 if (
@@ -2502,20 +2264,21 @@ async function getWeather() {
                     image =
                         city.nightImage;
 
-                    dark =
-                        "rgba(0,0,0,0.25)";
-
                 }
 
 
                 card.style.backgroundImage =
                     `
                     linear-gradient(
-                        ${dark},
-                        ${dark}
+                        rgba(0,0,0,0.45),
+                        rgba(0,0,0,0.45)
                     ),
                     url("${image}")
                     `;
+
+
+                card.dataset.photo =
+                    image;
 
             }
 
@@ -2540,6 +2303,7 @@ async function getWeather() {
 
                     tempElement.dataset.temperature =
                         temp;
+
 
                     tempElement.textContent =
                         window.matchMedia(
@@ -2569,7 +2333,8 @@ async function getWeather() {
             ) {
 
                 humidityElement.textContent =
-                    data.current.relative_humidity_2m;
+                    data.current
+                        .relative_humidity_2m;
 
             }
 
@@ -2621,7 +2386,8 @@ async function getWeather() {
 
 
             if (
-                polarStatus === "polarDay"
+                polarStatus ===
+                "polarDay"
             ) {
 
                 sunriseText =
@@ -2633,7 +2399,8 @@ async function getWeather() {
             }
 
             else if (
-                polarStatus === "normal" &&
+                polarStatus ===
+                    "normal" &&
                 data.daily &&
                 data.daily.sunrise &&
                 data.daily.sunset &&
@@ -2645,6 +2412,7 @@ async function getWeather() {
                     data.daily.sunrise[0]
                         .split("T")[1]
                         .substring(0,5);
+
 
                 sunsetText =
                     data.daily.sunset[0]
@@ -2658,6 +2426,7 @@ async function getWeather() {
                 document.getElementById(
                     city.id + "Sunrise"
                 );
+
 
             const sunsetElement =
                 document.getElementById(
@@ -2712,7 +2481,7 @@ async function getWeather() {
 
 
 /* =========================================================
-   ⑨ 温度表示
+   ⑩ 温度表示
    ========================================================= */
 
 function updateTemperatureDisplay() {
@@ -2794,13 +2563,17 @@ function updateTemperatureDisplay() {
                             "span"
                         );
 
+
                     smallClimate.className =
                         "small-climate";
+
 
                     smallClimate.style.marginLeft =
                         "8px";
 
-                    tempElement.parentElement
+
+                    tempElement
+                        .parentElement
                         .appendChild(
                             smallClimate
                         );
@@ -2816,7 +2589,9 @@ function updateTemperatureDisplay() {
             else {
 
                 if (smallClimate) {
+
                     smallClimate.remove();
+
                 }
 
             }
@@ -2833,8 +2608,10 @@ window.addEventListener(
 
 
 /* =========================================================
-   ⑩ 詳細カード
-   ★1つだけ
+   ここまでが ①〜⑩
+   ========================================================= */
+/* =========================================================
+   ⑪ 詳細カード表示
    ========================================================= */
 
 function showDetailCity(city) {
@@ -2844,42 +2621,39 @@ function showDetailCity(city) {
     }
 
 
-    detailCityId =
-        city.id;
+    detailCityId = city.id;
 
 
-    const card =
-        document.getElementById(
-            city.id + "Card"
-        );
+    /* =====================================================
+       写真位置を中央へ戻す
+       ===================================================== */
+
+    resetDetailPhotoPosition();
 
 
-    /* =========================
+    /* =====================================================
        タイトル
-       ========================= */
+       ===================================================== */
 
     const flagImage =
-        getFlagImage(
-            city.flagCode
-        );
+        getFlagImage(city.flagCode);
 
 
-    detailTitle.innerHTML =
-    `
+    detailTitle.innerHTML = `
         <span class="detail-flag">
-
             <img
                 src="${flagImage}"
                 width="70"
                 alt="${city.name}の国旗"
             >
-
         </span>
 
         <span class="detail-country-code">
-            ${city.flagCode
-                ? city.flagCode.toUpperCase()
-                : ""}
+            ${
+                city.flagCode
+                    ? city.flagCode.toUpperCase()
+                    : ""
+            }
         </span>
 
         <span class="city-name">
@@ -2892,9 +2666,9 @@ function showDetailCity(city) {
     `;
 
 
-    /* =========================
+    /* =====================================================
        時刻
-       ========================= */
+       ===================================================== */
 
     const now =
         new Date();
@@ -2935,9 +2709,9 @@ function showDetailCity(city) {
         "🕒 " + currentTime;
 
 
-    /* =========================
+    /* =====================================================
        天気
-       ========================= */
+       ===================================================== */
 
     const weatherElement =
         document.getElementById(
@@ -2951,9 +2725,9 @@ function showDetailCity(city) {
             : "--";
 
 
-    /* =========================
+    /* =====================================================
        気温
-       ========================= */
+       ===================================================== */
 
     const tempElement =
         document.getElementById(
@@ -2971,9 +2745,9 @@ function showDetailCity(city) {
         "℃";
 
 
-    /* =========================
+    /* =====================================================
        湿度
-       ========================= */
+       ===================================================== */
 
     const humidityElement =
         document.getElementById(
@@ -2991,9 +2765,9 @@ function showDetailCity(city) {
         "%";
 
 
-    /* =========================
+    /* =====================================================
        日の出
-       ========================= */
+       ===================================================== */
 
     const sunriseElement =
         document.getElementById(
@@ -3010,9 +2784,9 @@ function showDetailCity(city) {
         );
 
 
-    /* =========================
+    /* =====================================================
        日の入り
-       ========================= */
+       ===================================================== */
 
     const sunsetElement =
         document.getElementById(
@@ -3029,9 +2803,9 @@ function showDetailCity(city) {
         );
 
 
-    /* =========================
+    /* =====================================================
        座標
-       ========================= */
+       ===================================================== */
 
     const latitudeText =
         city.latitude >= 0
@@ -3068,31 +2842,82 @@ function showDetailCity(city) {
         longitudeText;
 
 
-    /* =========================
+    /* =====================================================
        気候
-       ========================= */
+       ===================================================== */
 
     detailClimate.textContent =
         "🌍 " +
-        city.climate;
+        (city.climate || "");
 
 
-    /* =========================
-       背景
-       ========================= */
+    /* =====================================================
+       詳細写真
+       ===================================================== */
 
-    if (card) {
+    let detailImage =
+        city.image || "";
 
-        detailCard.style.backgroundImage =
-            card.style.backgroundImage;
+
+    /*
+     * 現在のカードに表示されている写真を確認
+     *
+     * ここでは cityCard を直接取得する。
+     * 以前のコードのように未定義の card を使わない。
+     */
+
+    const cityCard =
+        document.getElementById(
+            city.id + "Card"
+        );
+
+
+    if (cityCard) {
+
+        const currentPhoto =
+            cityCard.dataset.photo;
+
+
+        if (
+            currentPhoto
+        ) {
+
+            detailImage =
+                currentPhoto;
+
+        }
 
     }
 
 
-    /* =========================
-       表示
-       ★スマホでも操作可能
-       ========================= */
+    /*
+     * 写真を設定
+     */
+
+    detailPhoto.src =
+        detailImage;
+
+
+    detailPhoto.alt =
+        city.name + "の写真";
+
+
+    /*
+     * 写真読み込み完了後、
+     * 横幅を計算して中央位置へ戻す
+     */
+
+    detailPhoto.onload =
+        () => {
+
+            resetDetailPhotoPosition();
+
+        };
+
+
+    /* =====================================================
+       詳細画面を表示
+       ===================================================== */
 
     detailOverlay.style.display =
         "flex";
@@ -3107,7 +2932,7 @@ function showDetailCity(city) {
 
 
 /* =========================================================
-   ⑪ 都市カードクリック
+   ⑫ 都市カードクリック
    ========================================================= */
 
 cityContainer.addEventListener(
@@ -3148,7 +2973,7 @@ cityContainer.addEventListener(
 
 
 /* =========================================================
-   ⑫ 前へ
+   ⑬ 前へ
    ========================================================= */
 
 detailPrev.addEventListener(
@@ -3193,7 +3018,7 @@ detailPrev.addEventListener(
 
 
 /* =========================================================
-   ⑬ 次へ
+   ⑭ 次へ
    ========================================================= */
 
 detailNext.addEventListener(
@@ -3237,8 +3062,29 @@ detailNext.addEventListener(
 
 
 /* =========================================================
-   ⑭ 閉じる
+   ⑮ 閉じる
    ========================================================= */
+
+function closeDetail() {
+
+    detailOverlay.style.display =
+        "none";
+
+    detailOverlay.style.visibility =
+        "hidden";
+
+    detailOverlay.style.pointerEvents =
+        "none";
+
+
+    detailCityId =
+        null;
+
+
+    resetDetailPhotoPosition();
+
+}
+
 
 detailClose.addEventListener(
     "click",
@@ -3246,26 +3092,14 @@ detailClose.addEventListener(
 
         event.stopPropagation();
 
-
-        detailOverlay.style.display =
-            "none";
-
-        detailOverlay.style.visibility =
-            "hidden";
-
-        detailOverlay.style.pointerEvents =
-            "none";
-
-
-        detailCityId =
-            null;
+        closeDetail();
 
     }
 );
 
 
 /* =========================================================
-   ⑮ 背景クリック
+   ⑯ 背景クリック
    ========================================================= */
 
 detailOverlay.addEventListener(
@@ -3277,17 +3111,7 @@ detailOverlay.addEventListener(
             detailOverlay
         ) {
 
-            detailOverlay.style.display =
-                "none";
-
-            detailOverlay.style.visibility =
-                "hidden";
-
-            detailOverlay.style.pointerEvents =
-                "none";
-
-            detailCityId =
-                null;
+            closeDetail();
 
         }
 
@@ -3296,7 +3120,7 @@ detailOverlay.addEventListener(
 
 
 /* =========================================================
-   ⑯ ドラッグ
+   ⑰ PC版カードドラッグ
    ========================================================= */
 
 let isDragging =
@@ -3313,12 +3137,34 @@ detailCard.addEventListener(
     "mousedown",
     event => {
 
+        /*
+         * スマホではカード自体を動かさない
+         */
+
+        if (
+            window.matchMedia(
+                "(max-width:800px)"
+            ).matches
+        ) {
+
+            return;
+
+        }
+
+
+        /*
+         * ボタンを押したときは
+         * カードドラッグを開始しない
+         */
+
         if (
             event.target === detailClose ||
             event.target === detailPrev ||
             event.target === detailNext
         ) {
+
             return;
+
         }
 
 
@@ -3408,6 +3254,7 @@ document.addEventListener(
         detailCard.style.left =
             left + "px";
 
+
         detailCard.style.top =
             top + "px";
 
@@ -3436,10 +3283,299 @@ document.addEventListener(
 
 
 /* =========================================================
-   ⑰ 起動
+   ⑰.5 スマホ版
+   写真だけ左右スワイプ
+   ========================================================= */
+
+
+/*
+ * 現在の写真の横位置
+ */
+
+let photoSwipeCurrentX =
+    0;
+
+
+/*
+ * タッチ開始位置
+ */
+
+let photoSwipeStartX =
+    0;
+
+
+/*
+ * タッチ開始時の写真位置
+ */
+
+let photoSwipeStartPosition =
+    0;
+
+
+/*
+ * 現在ドラッグ中か
+ */
+
+let photoIsDragging =
+    false;
+
+
+/* =========================================================
+   写真位置を設定
+   ========================================================= */
+
+function setDetailPhotoPosition(
+    position
+) {
+
+    if (!detailPhoto) {
+        return;
+    }
+
+
+    detailPhoto.style.transform =
+        "translateX(calc(-50% + " +
+        position +
+        "px))";
+
+}
+
+
+/* =========================================================
+   写真位置を中央へ戻す
+   ========================================================= */
+
+function resetDetailPhotoPosition() {
+
+    photoSwipeCurrentX =
+        0;
+
+    photoSwipeStartPosition =
+        0;
+
+    photoIsDragging =
+        false;
+
+
+    setDetailPhotoPosition(
+        0
+    );
+
+}
+
+
+/* =========================================================
+   スマホ写真タッチ開始
+   ========================================================= */
+
+if (detailPhotoLayer) {
+
+    detailPhotoLayer.addEventListener(
+        "touchstart",
+        event => {
+
+            /*
+             * PCでは何もしない
+             */
+
+            if (
+                window.innerWidth > 800
+            ) {
+
+                return;
+
+            }
+
+
+            /*
+             * 1本指だけ
+             */
+
+            if (
+                !event.touches ||
+                event.touches.length !== 1
+            ) {
+
+                return;
+
+            }
+
+
+            /*
+             * 写真が存在しない場合
+             */
+
+            if (!detailPhoto) {
+                return;
+            }
+
+
+            photoSwipeStartX =
+                event.touches[0].clientX;
+
+
+            photoSwipeStartPosition =
+                photoSwipeCurrentX;
+
+
+            photoIsDragging =
+                true;
+
+        },
+        {
+            passive: true
+        }
+    );
+
+
+    /* =====================================================
+       スマホ写真タッチ移動
+       ===================================================== */
+
+    detailPhotoLayer.addEventListener(
+        "touchmove",
+        event => {
+
+            if (!photoIsDragging) {
+                return;
+            }
+
+
+            if (
+                !event.touches ||
+                event.touches.length !== 1
+            ) {
+
+                return;
+
+            }
+
+
+            const currentX =
+                event.touches[0].clientX;
+
+
+            const movement =
+                currentX -
+                photoSwipeStartX;
+
+
+            let newPosition =
+                photoSwipeStartPosition +
+                movement;
+
+
+            /*
+             * 写真の実際の横幅
+             */
+
+            const photoWidth =
+                detailPhoto.offsetWidth;
+
+
+            /*
+             * 写真表示エリアの横幅
+             */
+
+            const areaWidth =
+                detailPhotoLayer.clientWidth;
+
+
+            /*
+             * 写真が画面より横長の場合だけ
+             * 左右に動かせる
+             */
+
+            const maxMove =
+                Math.max(
+                    0,
+                    (
+                        photoWidth -
+                        areaWidth
+                    ) / 2
+                );
+
+
+            /*
+             * 動ける範囲を制限
+             */
+
+            newPosition =
+                Math.max(
+                    -maxMove,
+                    Math.min(
+                        maxMove,
+                        newPosition
+                    )
+                );
+
+
+            photoSwipeCurrentX =
+                newPosition;
+
+
+            /*
+             * 写真だけ動かす
+             */
+
+            setDetailPhotoPosition(
+                photoSwipeCurrentX
+            );
+
+
+            /*
+             * 画面全体を動かさない
+             */
+
+            event.preventDefault();
+
+        },
+        {
+            passive: false
+        }
+    );
+
+
+    /* =====================================================
+       スマホ写真タッチ終了
+       ===================================================== */
+
+    detailPhotoLayer.addEventListener(
+        "touchend",
+        () => {
+
+            photoIsDragging =
+                false;
+
+        },
+        {
+            passive: true
+        }
+    );
+
+
+    detailPhotoLayer.addEventListener(
+        "touchcancel",
+        () => {
+
+            photoIsDragging =
+                false;
+
+        },
+        {
+            passive: true
+        }
+    );
+
+}
+
+
+/* =========================================================
+   ⑱ 起動
    ========================================================= */
 
 updateTemperatureDisplay();
+
 
 getWeather();
 
@@ -3456,7 +3592,171 @@ window.addEventListener(
     }
 );
 
-</script>
+
+/* =========================================================
+   スマホ拡大版
+   背景写真だけ左右に動かす
+   ========================================================= */
+
+const detailPhoto =
+    document.getElementById("detailPhoto");
+
+
+let photoStartX = 0;
+
+let photoStartPosition = 50;
+
+let photoPosition = 50;
+
+let photoDragging = false;
+
+
+/* =========================
+   写真を表示
+   ========================= */
+
+function setDetailPhoto(city) {
+
+    if (!city) {
+        return;
+    }
+
+    let image =
+        city.currentImage ||
+        city.image;
+
+    if (!image) {
+        return;
+    }
+
+    detailPhoto.style.backgroundImage =
+        `url("${image}")`;
+
+    photoPosition = 50;
+
+    photoStartPosition = 50;
+
+    detailPhoto.style.backgroundPosition =
+        "50% center";
+}
+
+
+/* =========================
+   タッチ開始
+   ========================= */
+
+detailPhoto.addEventListener(
+    "touchstart",
+    event => {
+
+        if (
+            event.touches.length !== 1
+        ) {
+            return;
+        }
+
+        photoStartX =
+            event.touches[0].clientX;
+
+        photoStartPosition =
+            photoPosition;
+
+        photoDragging =
+            true;
+    },
+    {
+        passive: true
+    }
+);
+
+
+/* =========================
+   横にスワイプ
+   ========================= */
+
+detailPhoto.addEventListener(
+    "touchmove",
+    event => {
+
+        if (!photoDragging) {
+            return;
+        }
+
+        if (
+            event.touches.length !== 1
+        ) {
+            return;
+        }
+
+        const currentX =
+            event.touches[0].clientX;
+
+        const moveX =
+            currentX -
+            photoStartX;
+
+
+        /*
+           横方向だけ反映
+        */
+
+        const movement =
+            (moveX /
+             detailPhoto.clientWidth) *
+            100;
+
+
+        photoPosition =
+            photoStartPosition +
+            movement;
+
+
+        /*
+           写真が極端に外れないよう制限
+        */
+
+        photoPosition =
+            Math.max(
+                0,
+                Math.min(
+                    100,
+                    photoPosition
+                )
+            );
+
+
+        detailPhoto.style.backgroundPosition =
+            photoPosition +
+            "% center";
+
+
+        /*
+           画面自体が動かないようにする
+        */
+
+        event.preventDefault();
+
+    },
+    {
+        passive: false
+    }
+);
+
+
+/* =========================
+   指を離す
+   ========================= */
+
+detailPhoto.addEventListener(
+    "touchend",
+    () => {
+
+        photoDragging =
+            false;
+
+    }
+);</script>
 
 </body>
+
 </html>
